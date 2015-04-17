@@ -33,7 +33,7 @@
   <!--STYLES END-->
 </head>
 
-<body>
+<body ng-app="brushfire_videosPage" ng-controller="PageCtrl" ng-cloak>
   <div class="container-fluid">
     <!-- Creates the navbar -->
     <nav class="navbar navbar-default navbar-inverse">
@@ -53,26 +53,35 @@
       </div>
     </nav>
 
-    <!-- SUBMIT NEW VIDEO -->
-    <section class="submit-video-form col-md-4">
-      <h3>See something missing?</h3>
-      <form>
-        <input class="form-control" type="text" name="title" placeholder="e.g.
-       My video title" />
-        <input class="form-control" type="text" name="src" placeholder="e.g. https://www.youtube.com/watch?v=5O434MiRBoY" />
-        <button class="btn btn-success">Submit Video</button>
-      </form>
-    </section>
+  <!-- SUBMIT NEW VIDEO -->
+  <section class="the-submit-video-form col-md-4">
+    <h3>See something missing?</h3>
+    <form ng-submit="submitNewVideo()">
+      <input class="form-control" type="text"
+        ng-model="newVideoTitle" ng-disabled="busySubmittingVideo" name="title"
+        placeholder="e.g. My video title"/>
+      <input class="form-control" type="text" ng-model="newVideoSrc"
+        ng-disabled="busySubmittingVideo" name="src"
+        placeholder="e.g. https://www.youtube.com/embed/Kdgt1ZHkvnM"/>
+      <button class="btn btn-success" type="submit"
+        ng-disabled="busySubmittingVideo">{{busySubmittingVideo?'Submitting...':'Submit Video'}}
+      </button>
+    </form>
+  </section>
 
-    <!-- LIST OF VIDEOS -->
-    <section class="the-list-of-videos col-md-12">
-      <div class="loading">Loading videos...</div>
-      <ul>
-        <!-- VIDEO DATA INSERTED HERE AS HTML -->
-      </ul>
-    </section>
+  <!-- LIST OF VIDEOS -->
+  <section class="the-list-of-videos col-md-12">
+    <div class="loading" ng-if="videosLoading">Loading videos...</div>
+    <ul>
+      <li class="video" ng-repeat="video in videos" ng-if="!videosLoading">
+        <h2>{{video.title}}</h2>
+        <iframe width="640" height="390" ng-src="{{video.src}}" frameborder="0" allowfullscreen>
+        </iframe>
+      </li>
+    </ul>
+  </section>
 
-  </div>
+</div>
 
   <!--
       Client-side Templates
