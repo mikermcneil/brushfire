@@ -22,10 +22,11 @@ angular.module('brushfire_videosPage').controller('PageCtrl', [
 
     $scope.submitVideosError = false;
 
-    setTimeout(function (){
+    
       // Get the existing videos.
       io.socket.get('/video', function whenServerResponds(data, JWR) {
         $scope.videosLoading = false;
+        console.log('Fetched videos and subscribed... Response:', data);
 
         if (JWR.statusCode >= 400) {
           $scope.submitVideosError = true;
@@ -43,8 +44,6 @@ angular.module('brushfire_videosPage').controller('PageCtrl', [
         $scope.$apply();
 
       });
-      
-    }, 1000);
 
 
     ///////////////////////////////////////////////////////////////
