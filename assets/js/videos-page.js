@@ -14,30 +14,37 @@ angular.module('brushfire_videosPage').controller('PageCtrl', [
     // Immediately start fetching list of videos from the server.
     /////////////////////////////////////////////////////////////////////////////
 
+    // Set up $scope.videos as an empty array to ensure it always exists.
+    $scope.videos = [];
+
     // First, show a loading spinner
     $scope.videosLoading = true;
 
     $scope.submitVideosError = false;
 
+    setTimeout(function (){
+      // Get the existing videos.
+      io.socket.get('/video', function whenServerResponds(data, JWR) {
+        $scope.videosLoading = false;
 
-    // Get the existing videos.
-    io.socket.get('/video', function whenServerResponds(data, JWR) {
-      $scope.videosLoading = false;
+        if (JWR.statusCode >= 400) {
+          $scope.submitVideosError = true;
+          $scope.videosLoading = false;
+          console.log('something bad happened',data);
+          $scope.$apply();
+          return;
+        }
 
-      if (JWR.statusCode >= 400) {
-       $scope.submitVideosError = true;
-        console.log('something bad happened');
-        return;
-      }
+        $scope.videos = data;
 
-      $scope.videos = data;
+        // Apply the changes to the DOM
+        // (we have to do this since `io.socket.get` is not a
+        // angular-specific magical promisy-thing)
+        $scope.$apply();
 
-      // Apply the changes to the DOM
-      // (we have to do this since `io.socket.get` is not a
-      // angular-specific magical promisy-thing)
-      $scope.$apply();
-
-    });
+      });
+      
+    }, 1000);
 
 
     ///////////////////////////////////////////////////////////////
@@ -69,12 +76,12 @@ angular.module('brushfire_videosPage').controller('PageCtrl', [
       var parser = document.createElement('a');
 
       // assign url to parser.href
-      parser.href = _newVideo.src
+      parser.href = _newVideo.src;
 
       // Use the indexOf parser.search as the first argument and length of
       // parser.search as the second argument of parser.search.substring
       // The result is the YouTube ID --> LfOWehvvuo0
-      var youtubeID = parser.search.substring(parser.search.indexOf("=") + 1, parser.search.length);
+      var youtubeID = parser.search.substring(parser.search.indexOf('=') + 1, parser.search.length);
 
       _newVideo.src = 'https://www.youtube.com/embed/' + youtubeID;
 
@@ -125,12 +132,12 @@ angular.module('brushfire_videosPage').controller('PageCtrl', [
       });
 
       io.socket.on('video', function whenAVideoIsCreatedUpdatedOrDestroyed(event) {
+        // console.log('Is it firing',event);
 
         // Add the new video to the DOM
         $scope.videos.unshift({
           title: event.data.title,
-          src: event.data.src,
-
+          src: event.data.src
         });
 
         // Apply the changes to the DOM
