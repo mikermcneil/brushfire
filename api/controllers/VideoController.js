@@ -6,6 +6,10 @@
  */
 
 module.exports = {
+
+  find: function(req, res) {
+    console.log("Hello World!");
+  }
 	
 };
 
