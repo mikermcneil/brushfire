@@ -8,9 +8,10 @@
 module.exports = {
 
   find: function(req, res) {
-    console.log("Hello World!");
-    return res.json();
-  }
-	
-};
 
+    console.log('Hello World!');
+    res.json('Hello World!');
+
+  }
+
+};
