@@ -9,8 +9,10 @@ module.exports = {
 
   find: function(req, res) {
 
-    console.log('Hello World!');
-    res.json('Hello World!');
+    return res.json([{
+      title: 'Cat eats dog.',
+      src: 'https://www.youtube.com/embed/INscMGmhmX4'
+    }]);
 
   }
 
