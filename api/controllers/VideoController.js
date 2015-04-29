@@ -13,23 +13,21 @@ module.exports = {
     // List Youtube videos which match the specified search query.
     Youtube.searchVideos({
       query: 'grumpy cat',
-      apiKey: 'xAmBxAmBxAmBkjbyKkjbyKkjbyK',
+      apiKey: 'AIzaSyCT2IHOJJDgoTxAmBkjbyKu_xU8LY_sA64',
       limit: 15,
     }).exec({
       // An unexpected error occurred.
       error: function(err) {
 
+        return res.serverError(err);
+
       },
       // OK.
       success: function(result) {
-
-      },
+        return res.json(result);
+      }
     });
 
-    return res.json([{
-      title: 'Cat eats dog.',
-      src: 'https://www.youtube.com/embed/INscMGmhmX4'
-    }]);
 
   }
 
