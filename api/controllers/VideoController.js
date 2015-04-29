@@ -23,8 +23,16 @@ module.exports = {
 
       },
       // OK.
-      success: function(result) {
-        return res.json(result);
+      success: function(videos) {
+
+        _.each(videos, function(video){
+          video.src = 'https://www.youtube.com/embed/' + video.id;
+          delete video.description;
+          delete video.publishedAt;
+          delete video.id;
+          delete video.url;
+        })
+        return res.json(videos);
       }
     });
 
