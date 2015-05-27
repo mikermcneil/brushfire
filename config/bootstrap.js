@@ -35,9 +35,17 @@ module.exports.bootstrap = function(cb) {
 
       },
       // OK.
-      success: function(foundVideos) {
+      success: function(returnedVideos) {
 
-        console.log(foundVideos);
+        _.each(returnedVideos, function(video) {                   
+          video.src = 'https://www.youtube.com/embed/' + video.id;
+          delete video.description;
+          delete video.publishedAt;
+          delete video.id;
+          delete video.url;
+        });
+
+        console.log(returnedVideos);
         return cb();
       },
     });
