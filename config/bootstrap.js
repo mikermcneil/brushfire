@@ -11,10 +11,17 @@
 
 module.exports.bootstrap = function(cb) {
 
-  console.log('Hello World!');               //#A
+  Video.count().exec(function(err, numVideos) {             
+    if (err) {
+      return cb(err);                           
+    }
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  return cb();
+    if (numVideos > 0) {                  
+      console.log('Number of video records: ', numVideos);
+      return cb();                
+    }
+    // No records in the video model, seed the database.    
+    return cb();              
+  });
 
 };
