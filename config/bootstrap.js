@@ -25,21 +25,17 @@ module.exports.bootstrap = function(cb) {
     // List Youtube videos which match the specified search query.
     Youtube.searchVideos({
       query: 'grumpy cat',
-      apiKey: 'xAmBxAmBxAmBkjbyKkjbyKkjbyK',
+      apiKey: 'AIzaSyDXO3uVugLUvrrziRkWk6PLRnYO4x5QBa0',  //#A
       limit: 15,
     }).exec({
       // An unexpected error occurred.
       error: function(err) {
-
+        cb(err);
       },
       // OK.
       success: function(result) {
-
+        cb();
       },
     });
-
-    return cb();
   });
-
-
-};
+}
