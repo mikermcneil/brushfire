@@ -11,17 +11,35 @@
 
 module.exports.bootstrap = function(cb) {
 
-  Video.count().exec(function(err, numVideos) {             
+  Video.count().exec(function(err, numVideos) {
     if (err) {
-      return cb(err);                           
+      return cb(err);
     }
 
-    if (numVideos > 0) {                  
-      console.log('Number of video records: ', numVideos);
-      return cb();                
+    if (numVideos > 0) {
+      console.log('Existing video records: ', numVideos)
+      return cb();
     }
-    // No records in the video model, seed the database.    
-    return cb();              
+    var Youtube = require('machinepack-youtube');
+
+    // List Youtube videos which match the specified search query.
+    Youtube.searchVideos({
+      query: 'grumpy cat',
+      apiKey: 'xAmBxAmBxAmBkjbyKkjbyKkjbyK',
+      limit: 15,
+    }).exec({
+      // An unexpected error occurred.
+      error: function(err) {
+
+      },
+      // OK.
+      success: function(result) {
+
+      },
+    });
+
+    return cb();
   });
+
 
 };
