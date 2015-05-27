@@ -37,7 +37,7 @@ module.exports.bootstrap = function(cb) {
       // OK.
       success: function(returnedVideos) {
 
-        _.each(returnedVideos, function(video) {                   
+        _.each(returnedVideos, function(video) {
           video.src = 'https://www.youtube.com/embed/' + video.id;
           delete video.description;
           delete video.publishedAt;
@@ -45,9 +45,15 @@ module.exports.bootstrap = function(cb) {
           delete video.url;
         });
 
-        console.log(returnedVideos);
-        return cb();
+        Video.create(returnedVideos).exec(function(err, videoRecordsCreated) { //#A
+          if (err) {                                        //#B
+            return cb(err);
+          }
+
+          console.log(videoRecordsCreated);             //#C
+          return cb();                  //#D
+        });
       },
     });
   });
-};
+}
