@@ -45,13 +45,13 @@ module.exports.bootstrap = function(cb) {
           delete video.url;
         });
 
-        Video.create(returnedVideos).exec(function(err, videoRecordsCreated) { //#A
-          if (err) {                                        //#B
+        Video.create(returnedVideos).exec(function(err, videoRecordsCreated) { 
+          if (err) {                                        
             return cb(err);
           }
 
-          console.log(videoRecordsCreated);             //#C
-          return cb();                  //#D
+          console.log(videoRecordsCreated);             
+          return cb();                  
         });
       },
     });

@@ -22,7 +22,10 @@
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-contrib-less": "0.11.1",
     "grunt-contrib-coffee": "~0.10.1",
-    "machinepack-youtube": "^2.2.0"
+    "machinepack-youtube": "^2.2.0",
+    "machinepack-emailaddresses": "^0.3.0",
+    "machinepack-gravatar": "^1.1.4",
+    "machinepack-passwords": "^2.2.1"
   },
   "scripts": {
     "start": "node app.js",

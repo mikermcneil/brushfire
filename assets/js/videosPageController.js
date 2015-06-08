@@ -1,12 +1,4 @@
-angular.module('brushfire_videosPage', [])
-  .config(function($sceDelegateProvider) {
-    $sceDelegateProvider.resourceUrlWhitelist([
-      'self',
-      '*://www.youtube.com/**'
-    ]);
-  });
-
-angular.module('brushfire_videosPage').controller('PageCtrl', [
+angular.module('brushfire').controller('videosPageController', [
   '$scope', '$http',
   function($scope, $http) {
 

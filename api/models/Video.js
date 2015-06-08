@@ -7,4 +7,11 @@
 
 module.exports = {
 
+  attributes: {
+
+    title: 'string',
+    src: 'string'
+
+  }
+
 };
