@@ -28,10 +28,11 @@ angular.module('brushfire').controller('signupPageController', ['$scope', '$http
 
     if (emailAddressAlreadyInUse) {
       toastr.error(sailsResponse.data);
+      $scope.signupForm.errorMsg = 'An unexpected error occurred: ' + (sailsResponse.data || sailsResponse.status);
       return;
     }
 
-    toastr.error(sailsResponse.data, 'Error');
+    $scope.signupForm.errorMsg = 'An unexpected error occurred: ' + (sailsResponse.data || sailsResponse.status);
 
     })
     .finally(function eitherWay(){

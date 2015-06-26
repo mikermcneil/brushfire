@@ -88,6 +88,22 @@ module.exports = {
     });
   },
 
+  findOne: function(req, res) {
+
+    // Try to look up user using the provided email address
+    User.findOne(req.param('id'),
+      function foundUser(err, user) {
+        // Handle error
+        if (err) return res.negotiate(err);
+
+        // Handle no user being found
+        if (!user) return res.notFound();
+
+        // Return the user
+        return res.json(user);
+      });
+  },
+
   restoreGravatarURL: function(req, res) {
 
     // Create a Gravatar URL using the passed in email address
@@ -103,6 +119,23 @@ module.exports = {
     } catch (err) {
       return res.serverError(err);
     }
+  },
+
+  updateProfile: function(req, res) {
+
+    User.update({
+      id: req.param('id')
+    }, {
+      gravatarURL: req.param('gravatarURL')
+    }, function(err, updatedUser) {
+
+      // Handle error
+      if (err) return res.negotiate(err);
+
+      // Return updated User
+      return res.json(updatedUser);
+
+    });
   },
 
   changePassword: function(req, res) {
@@ -133,7 +166,11 @@ module.exports = {
         console.log('the result: ', result);
         console.log('req.param: ', req.param('id'))
 
-        User.update({id: req.param('id')}, {encryptedPassword: result}).exec(function(err, updatedUser) {
+        User.update({
+          id: req.param('id')
+        }, {
+          encryptedPassword: result
+        }).exec(function(err, updatedUser) {
           if (err) {
             return res.negotiate(err);
           }
@@ -150,13 +187,101 @@ module.exports = {
 
   },
 
+  delete: function(req, res) {
+
+    // Validate for id
+    if (!req.param('id')){
+      return res.badRequest('id is a required parameter.');
+    }
+
+    // Destroy record
+    User.destroy({
+      id: req.param('id')
+    }).exec(function (err, usersDestroyed){
+      if (err) return res.negotiate(err);
+      if (usersDestroyed.length === 0) {
+        return res.notFound();
+      }
+
+      // Send back a 200 status
+      return res.ok();
+    });
+  },
+
+  removeProfile: function(req, res) {
+
+    // Validate for id
+    if (!req.param('id')){
+      return res.badRequest('id is a required parameter.');
+    }
+
+    User.update({
+      id: req.param('id')
+    },{
+      deleted: true
+    }, function(err, removedUser){
+
+      if (err) return res.negotiate(err);
+      if (removedUser.length === 0) {
+        return res.notFound();
+      }
+
+      // Send back a 200 status
+      return res.ok();
+    });
+  },
+
+  restoreProfile: function(req, res) {
+
+    // Try to look up user using the provided email address
+    User.findOne({
+      email: req.param('email')
+    }, function foundUser(err, user) {
+      if (err) return res.negotiate(err);
+      if (!user) return res.notFound();
+
+      // Compare password attempt from the form params to the encrypted password
+      // from the database (`user.password`)
+      Passwords.checkPassword({
+        passwordAttempt: req.param('password'),
+        encryptedPassword: user.encryptedPassword
+      }).exec({
+
+        error: function(err) {
+          return res.negotiate(err);
+        },
+
+        // If the password from the form params doesn't checkout w/ the encrypted
+        // password from the database...
+        incorrect: function() {
+          return res.notFound();
+        },
+
+        success: function() {
+
+          User.update({
+            id: user.id
+          }, {
+            deleted: false
+          }).exec(function(err, updatedUser) {
+
+            return res.json(updatedUser);
+          });
+
+          // // All done- let the client know that everything worked.
+          // return res.ok();
+        }
+      });
+    });
+  },
+
   me: function(req, res) {
 
     var id = req.param('id');
 
     User.findOne(req.param('id')).exec(function(err, me) {
 
-      console.log(me)
+      console.log(me);
 
       res.json(me);
 
@@ -171,34 +296,30 @@ module.exports = {
 
       console.log(me);
 
-    // Compare a plaintext password attempt against an already-encrypted version.
-    Passwords.checkPassword({
-      passwordAttempt: req.param('password'),
-      encryptedPassword: me.encryptedPassword,
-    }).exec({
-      // An unexpected error occurred.
-      error: function(err) {
+      // Compare a plaintext password attempt against an already-encrypted version.
+      Passwords.checkPassword({
+        passwordAttempt: req.param('password'),
+        encryptedPassword: me.encryptedPassword,
+      }).exec({
+        // An unexpected error occurred.
+        error: function(err) {
 
-        return res.serverError(err);
+          return res.serverError(err);
 
-      },
-      // Password attempt does not match already-encrypted version
-      incorrect: function() {
+        },
+        // Password attempt does not match already-encrypted version
+        incorrect: function() {
 
-        return res.badRequest('nope');
+          return res.badRequest('nope');
 
-      },
-      // OK.
-      success: function() {
+        },
+        // OK.
+        success: function() {
 
-        return res.ok();
+          return res.ok();
 
-      },
+        },
+      });
     });
-      
-
-    });
-
-
   }
 };

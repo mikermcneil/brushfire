@@ -143,6 +143,31 @@ angular.module('brushfire', ['ngRoute', 'toastr'])
     //   // $location.replace();
     //   // return;
     // }]
+  })
+
+  .when('/restore', {
+    templateUrl: '/templates/restore.html',
+    // If the current user is an admin, "redirect" (client-side) to `#/users`.
+    // Otherwise redirect to `#/profile`
+    controller: 'restorePageController'
+    // controller: ['$scope', '$location', function($scope, $location) {
+    //   // if ($scope.me.isAdmin) {
+
+    //   //   // Instead of:
+    //   //   // window.location.hash = '#/users';
+
+    //   //   // We can do it the angular way:
+    //   //   // (to avoid a bunch of weird digest loop errors)
+    //     //$location.path('/users');
+    //   //   $location.replace();
+    //   //   return;
+    //   // }
+
+    //   // // Client-side redirect to `#/profile`
+    //   // $location.path('/profile');
+    //   // $location.replace();
+    //   // return;
+    // }]
   });
 
 
