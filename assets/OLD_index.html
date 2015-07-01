@@ -41,6 +41,20 @@
           <ul class="nav navbar-nav">
             <li><a href="/#videos">Videos</a></li>
           </ul>
+          <form ng-submit="submitLoginForm()" class="navbar-form navbar-right">
+            <div class="form-group">
+              <input ng-model="loginForm.email" type="text" placeholder="Email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input ng-model="loginForm.password" type="password" placeholder="Password" name="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">
+            <span ng-show="!loginForm.loading">Sign in</span>
+            <span ng-show="loginForm.loading" class="fa fa-spinner"></span>
+            <span ng-show="loginForm.loading">Signing in...</span>
+            </button>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          </form>
         </div>
       </nav>
       <!-- Angular client-side routes determine the contents of this div. -->
