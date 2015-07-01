@@ -44,6 +44,11 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET /listAll': 'VideoController.find'
+  'GET /listAll': 'VideoController.find',
+  '/': 'PageController.showHomePage',
+  'GET /signup': 'PageController.showSignupPage',
+  'POST /signup': 'UserController.signup',
+  'PUT /login': 'UserController.login',
+  'GET /logout': 'UserController.logout'
 
 };
