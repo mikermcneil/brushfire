@@ -17,7 +17,7 @@ module.exports.bootstrap = function(cb) {
     }
 
     if (numVideos > 0) {
-      console.log('Existing video records: ', numVideos)
+      // console.log('Existing video records: ', numVideos)
       return cb();
     }
     var Youtube = require('machinepack-youtube');
@@ -50,7 +50,7 @@ module.exports.bootstrap = function(cb) {
             return cb(err);
           }
 
-          console.log(videoRecordsCreated);             
+          // console.log(videoRecordsCreated);             
           return cb();                  
         });
       },
