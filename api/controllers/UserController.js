@@ -218,8 +218,8 @@ module.exports = {
       // OK.
       success: function(result) {
 
-        console.log('the result: ', result);
-        console.log('req.param: ', req.param('id'))
+        // console.log('the result: ', result);
+        // console.log('req.param: ', req.param('id'))
 
         User.update({
           id: req.param('id')
@@ -341,7 +341,7 @@ module.exports = {
 
     User.findOne(req.param('id')).exec(function(err, me) {
 
-      console.log(me);
+      // console.log(me);
 
       res.json(me);
 

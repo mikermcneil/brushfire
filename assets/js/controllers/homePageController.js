@@ -19,7 +19,7 @@ angular.module('brushfire').controller('homePageController', ['$location', '$sco
       })
       .then(function onSuccess() {
         // Refresh the page now that we've been logged in.
-        window.location = '/';
+        window.location = '/videos';
       })
       .catch(function onError(sailsResponse) {
 

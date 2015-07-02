@@ -59,6 +59,8 @@ angular.module('brushfire').controller('editProfilePageController', ['$location'
         // Notice that the sailsResponse is an array and not a single object
         // The .update() model method returns an array and not a single record.
         // Response.data[0].id;window.location = '#/profile/' + sails
+        
+        window.location = '/profile';
 
         $scope.editProfile.loading = false;
       })
@@ -111,7 +113,7 @@ angular.module('brushfire').controller('editProfilePageController', ['$location'
           // $scope.userProfile.properties.gravatarURL = sailsResponse.data.gravatarURL;
           // window.location = '#/profile/' + $scope.editProfile.properties.id;
           // 
-          toastr.success('Password Updated!');
+          window.location = '/profile';
 
         $scope.editProfile.loading = false;
       })
