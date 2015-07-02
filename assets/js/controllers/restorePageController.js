@@ -26,7 +26,7 @@ angular.module('brushfire').controller('restorePageController', ['$scope', '$htt
       // Otherwise, display generic error if the error is unrecognized.
       // $scope.restoreForm.errorMsg = 'Email/Password combination does not match profile';
       if (sailsResponse.data.status > 400 < 404) {
-        $scope.signupForm.errorMsg = 'An unexpected error occurred: ' + (sailsResponse.data || sailsResponse.status);
+        $scope.restoreForm.errorMsg = 'An unexpected error occurred: ' + (sailsResponse.data || sailsResponse.status);
         toastr.error('The email/password combination did not match a user profile.');
         return;
       }
