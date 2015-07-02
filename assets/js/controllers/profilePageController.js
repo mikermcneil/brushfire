@@ -3,61 +3,47 @@ angular.module('brushfire').controller('profilePageController', ['$location', '$
   // Just a hack so we can type `SCOPE` in the Chrome inspector.
   SCOPE=$scope;
 
-  /////////////////////////////////////////////////////////////////////////////////
-  // When HTML is rendered... (i.e. when the page loads)
-  /////////////////////////////////////////////////////////////////////////////////
+  $scope.me = window.SAILS_LOCALS.me;
 
-  // Set up initial objects
-  // (kind of like our schema for the page)
-  $scope.userProfile = {
-    properties: {},
-    errorMsg: '',
-    saving: false,
-    loading: false,
-    noProfile: false
-  };
+  // // Build up route
+  // var theRoute = '/user/findOne/' +  $routeParams.id;
 
-  $scope.userProfile.loading = true;
+  // // Submit GET request to /user/profile/:id
+  // $http.get(theRoute)
+  // .then(function onSuccess(sailsResponse){
+  //   console.log('sailsResponse.data.deleted: ', sailsResponse.data.deleted);
 
-  // Build up route
-  var theRoute = '/user/findOne/' +  $routeParams.id;
+  //   // If deleted profile remove interface and show message.
+  //   if (sailsResponse.data.deleted === true) {
+  //     $scope.userProfile.errorMsg = 'No profile found.';
+  //     return $scope.userProfile.noProfile = true;
+  //   }
+  //   // console.log(sailsResponse.data.id);
+  //   // window.location = '#/profile/' + sailsResponse.data.id;
+  //   // console.log('The response is: ', sailsResponse);
+  //   $scope.userProfile.properties.email = sailsResponse.data.email;
+  //   $scope.userProfile.properties.gravatarURL = sailsResponse.data.gravatarURL;
+  //   $scope.userProfile.properties.id = sailsResponse.data.id;
 
-  // Submit GET request to /user/profile/:id
-  $http.get(theRoute)
-  .then(function onSuccess(sailsResponse){
-    console.log('sailsResponse.data.deleted: ', sailsResponse.data.deleted);
+  //   $scope.userProfile.loading = false;
+  // })
+  // .catch(function onError(sailsResponse){
+  //   // console.log(sailsResponse);
 
-    // If deleted profile remove interface and show message.
-    if (sailsResponse.data.deleted === true) {
-      $scope.userProfile.errorMsg = 'No profile found.';
-      return $scope.userProfile.noProfile = true;
-    }
-    // console.log(sailsResponse.data.id);
-    // window.location = '#/profile/' + sailsResponse.data.id;
-    // console.log('The response is: ', sailsResponse);
-    $scope.userProfile.properties.email = sailsResponse.data.email;
-    $scope.userProfile.properties.gravatarURL = sailsResponse.data.gravatarURL;
-    $scope.userProfile.properties.id = sailsResponse.data.id;
+  //   // If no profile found remove interface and show error message.    
+  //   if(sailsResponse.status === 404) {
+  //     $scope.userProfile.noProfile = true;
+  //     $scope.userProfile.errorMsg = 'No profile found.';
+  //     return;
+  //   }
 
-    $scope.userProfile.loading = false;
-  })
-  .catch(function onError(sailsResponse){
-    // console.log(sailsResponse);
+  //   // Handle all other errors
+  //   $scope.userProfile.errorMsg = 'An unexpected error occurred: '+(sailsResponse.data||sailsResponse.status);
 
-    // If no profile found remove interface and show error message.    
-    if(sailsResponse.status === 404) {
-      $scope.userProfile.noProfile = true;
-      $scope.userProfile.errorMsg = 'No profile found.';
-      return;
-    }
-
-    // Handle all other errors
-    $scope.userProfile.errorMsg = 'An unexpected error occurred: '+(sailsResponse.data||sailsResponse.status);
-
-  })
-  .finally(function eitherWay(){
-    $scope.userProfile.loading = false;
-  });
+  // })
+  // .finally(function eitherWay(){
+  //   $scope.userProfile.loading = false;
+  // });
 
   $scope.removeProfile = function() {
 

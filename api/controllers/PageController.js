@@ -41,14 +41,104 @@ module.exports = {
     });
   },
 
-  showSignupPage: function (req, res) {
+  showVideosPage: function (req, res) {
     
-  // If not logged in, show the public view.
+  // // If not logged in, show the public view.
+  //   if (!req.session.me) {
+  //     return res.view('homepage', {me: req.session.me});
+  //   }
+
+  if (!req.session.me) {
+    return res.view('videos', {
+      me: null
+    });
+  }
+
+    // Otherwise, look up the logged-in user and show the logged-in view,
+    // bootstrapping basic user data in the HTML sent from the server
+    User.findOne(req.session.me, function (err, user){
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (!user) {
+        sails.log.verbose('Session refers to a user who no longer exists- did you delete a user, then try to refresh the page with an open tab logged-in as that user?');
+        return res.view('videos');
+      }
+
+      return res.view('videos', {
+        me: {
+          id: user.id,
+          email: user.email,
+          gravatarURL: user.gravatarURL
+        }
+      });
+    });
+  },
+
+  showProfilePage: function (req, res) {
+
+    // If no session detected redirect to the homepage.
+      
     if (!req.session.me) {
-      return res.view('signup', {me: null});
+      return res.redirect('/');
     }
 
-    return res.view('videos', {
+    // Otherwise, look up the logged-in user and show the logged-in view,
+    // bootstrapping basic user data in the HTML sent from the server
+    User.findOne(req.session.me, function (err, user){
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (!user) {
+        sails.log.verbose('Session refers to a user who no longer exists- did you delete a user, then try to refresh the page with an open tab logged-in as that user?');
+        return res.view('homepage');
+      }
+
+      return res.view('profile', {
+        me: {
+          id: user.id,
+          email: user.email,
+          gravatarURL: user.gravatarURL
+        }
+      });
+    });
+  },
+
+   showEditProfilePage: function (req, res) {
+
+    // If no session detected redirect to the homepage.
+      
+    if (!req.session.me) {
+      return res.redirect('/');
+    }
+
+    // Otherwise, look up the logged-in user and show the logged-in view,
+    // bootstrapping basic user data in the HTML sent from the server
+    User.findOne(req.session.me, function (err, user){
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (!user) {
+        sails.log.verbose('Session refers to a user who no longer exists- did you delete a user, then try to refresh the page with an open tab logged-in as that user?');
+        return res.view('homepage');
+      }
+
+      return res.view('edit-profile', {
+        me: {
+          id: user.id,
+          email: user.email,
+          gravatarURL: user.gravatarURL
+        }
+      });
+    });
+  },
+
+  showSignupPage: function (req, res) {
+
+    return res.view('signup', {
       me: req.session.me
     });
   }

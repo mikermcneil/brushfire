@@ -1,4 +1,4 @@
-angular.module('brushfire').controller('homePageController', ['$location', '$scope', '$http', function($location, $scope, $http) {
+angular.module('brushfire').controller('homePageController', ['$location', '$scope', '$http', 'toastr', function($location, $scope, $http, toastr) {
 
   // set-up loading state
   $scope.loginForm = {
@@ -6,8 +6,6 @@ angular.module('brushfire').controller('homePageController', ['$location', '$sco
   };
 
   $scope.me = window.SAILS_LOCALS.me;
-
-  console.log('$scope.me: ', $scope.me);
 
   $scope.submitLoginForm = function() {
 
@@ -24,6 +22,8 @@ angular.module('brushfire').controller('homePageController', ['$location', '$sco
         window.location = '/';
       })
       .catch(function onError(sailsResponse) {
+
+        console.log(sailsResponse);
 
         // Handle known error type(s).
         // Invalid username / password combination.

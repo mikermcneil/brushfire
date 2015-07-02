@@ -47,8 +47,16 @@ module.exports.routes = {
   'GET /listAll': 'VideoController.find',
   '/': 'PageController.showHomePage',
   'GET /signup': 'PageController.showSignupPage',
+  'GET /videos': 'PageController.showVideosPage',
+  'GET /profile': 'PageController.showProfilePage',
+  'GET /edit-profile': 'PageController.showEditProfilePage',
+  'PUT /updateProfile/:id': 'UserController.updateProfile',
+  'PUT /restoreGravatarURL': 'UserController.restoreGravatarURL',
   'POST /signup': 'UserController.signup',
   'PUT /login': 'UserController.login',
-  'GET /logout': 'UserController.logout'
+  'GET /logout': 'UserController.logout',
+  'POST /user/signup': 'UserController.signup',
+  'PUT /changePassword': 'UserController.changePassword'
+
 
 };

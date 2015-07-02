@@ -17,8 +17,7 @@ angular.module('brushfire').controller('signupPageController', ['$scope', '$http
       confirmation: $scope.signupForm.confirmPassword
     })
     .then(function onSuccess(sailsResponse){
-      window.location = '#/profile/' + sailsResponse.data.id;
-      // window.location = '/user/' + sailsResponse.data.id;
+      window.location = '/videos';
     })
     .catch(function onError(sailsResponse){
 

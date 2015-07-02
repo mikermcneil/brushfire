@@ -79,6 +79,8 @@ module.exports = {
                 return res.negotiate(err);
               }
 
+              req.session.me=createdUser.id;
+
               return res.json(createdUser);
 
             });
