@@ -23,7 +23,13 @@ angular.module('brushfire').controller('homePageController', ['$location', '$sco
       })
       .catch(function onError(sailsResponse) {
 
-        console.log(sailsResponse);
+        if (sailsResponse.status === 403) {
+          // toastr.error('Removed', 'Error', {
+          //   closeButton: true
+          // });
+          window.location = '/restore';
+          return;
+        }
 
         // Handle known error type(s).
         // Invalid username / password combination.

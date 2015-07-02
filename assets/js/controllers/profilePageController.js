@@ -5,6 +5,16 @@ angular.module('brushfire').controller('profilePageController', ['$location', '$
 
   $scope.me = window.SAILS_LOCALS.me;
 
+  // // Set up initial objects
+  // // (kind of like our schema for the page)
+  $scope.editProfile = {
+    properties: {},
+    errorMsg: '',
+    saving: false,
+    loading: false,
+    changePassword: {}
+  };
+
   // // Build up route
   // var theRoute = '/user/findOne/' +  $routeParams.id;
 
@@ -49,7 +59,7 @@ angular.module('brushfire').controller('profilePageController', ['$location', '$
 
     // console.log('the change userprofile is: ', $scope.userProfile);
 
-    var theRoute = '/user/removeProfile/' + $scope.userProfile.properties.id;
+    var theRoute = 'removeProfile/' + $scope.me.id;
     $http.put(theRoute, {
         deleted: true
       })
@@ -57,7 +67,7 @@ angular.module('brushfire').controller('profilePageController', ['$location', '$
 
         // console.log('sailsResponse: ', sailsResponse);
           // $scope.userProfile.properties.gravatarURL = sailsResponse.data.gravatarURL;
-          window.location = '#/signup';
+          window.location = '/signup';
           // 
           // toastr.success('Password Updated!');
 

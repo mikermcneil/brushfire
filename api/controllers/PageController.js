@@ -88,6 +88,7 @@ module.exports = {
     // bootstrapping basic user data in the HTML sent from the server
     User.findOne(req.session.me, function (err, user){
       if (err) {
+        console.log('error: ', error);
         return res.negotiate(err);
       }
 
@@ -133,6 +134,13 @@ module.exports = {
           gravatarURL: user.gravatarURL
         }
       });
+    });
+  },
+
+  showRestorePage: function (req, res) {
+
+    return res.view('restore', {
+      me: req.session.me
     });
   },
 

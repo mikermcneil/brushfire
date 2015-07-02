@@ -12,14 +12,14 @@ angular.module('brushfire').controller('restorePageController', ['$scope', '$htt
     
     $scope.restoreForm.loading = true;
 
-    $http.put('/user/restoreProfile', {
+    $http.put('/restoreProfile', {
       email: $scope.restoreForm.email,
       password: $scope.restoreForm.password
     })
     .then(function onSuccess(sailsResponse){
-      console.log(sailsResponse);
+      // console.log('restoreProfile: ', sailsResponse);
 
-      window.location = '#/profile/' + sailsResponse.data[0].id;
+      window.location = '/profile';
     })
     .catch(function onError(sailsResponse) {
       console.log('sailsresponse: ', sailsResponse)

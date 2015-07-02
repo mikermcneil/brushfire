@@ -49,6 +49,8 @@ module.exports.routes = {
   'GET /signup': 'PageController.showSignupPage',
   'GET /videos': 'PageController.showVideosPage',
   'GET /profile': 'PageController.showProfilePage',
+  'GET /restore': 'PageController.showRestorePage',
+  'PUT /restoreProfile': 'UserController.restoreProfile',
   'GET /edit-profile': 'PageController.showEditProfilePage',
   'PUT /updateProfile/:id': 'UserController.updateProfile',
   'PUT /restoreGravatarURL': 'UserController.restoreGravatarURL',
@@ -56,7 +58,8 @@ module.exports.routes = {
   'PUT /login': 'UserController.login',
   'GET /logout': 'UserController.logout',
   'POST /user/signup': 'UserController.signup',
-  'PUT /changePassword': 'UserController.changePassword'
+  'PUT /changePassword': 'UserController.changePassword',
+  'PUT /removeProfile/:id': 'UserController.removeProfile'
 
 
 };

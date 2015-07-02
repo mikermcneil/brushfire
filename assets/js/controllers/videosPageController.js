@@ -163,7 +163,7 @@ angular.module('brushfire').controller('videosPageController', [
       })
       .catch(function onError(sailsResponse) {
 
-        console.log(sailsResponse);
+        // console.log(sailsResponse);
 
         // Handle known error type(s).
         // Invalid username / password combination.

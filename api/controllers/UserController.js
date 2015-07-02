@@ -126,6 +126,12 @@ module.exports = {
 
         success: function (){
 
+          if(user.deleted) {
+
+            return res.forbidden();
+
+          }
+
           // Store user id in the user session
           req.session.me = user.id;
 
@@ -275,7 +281,7 @@ module.exports = {
         return res.notFound();
       }
 
-      // Send back a 200 status
+      req.session.me = null;
       return res.ok();
     });
   },
@@ -313,8 +319,13 @@ module.exports = {
           }, {
             deleted: false
           }).exec(function(err, updatedUser) {
+            if (err) return res.negotiate(err);
 
-            return res.json(updatedUser);
+            req.session.me = user.id;
+
+            return res.ok();
+
+
           });
 
           // // All done- let the client know that everything worked.
