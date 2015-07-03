@@ -138,16 +138,20 @@ module.exports = {
   },
 
   showRestorePage: function (req, res) {
-
-    return res.view('restore', {
-      me: req.session.me
-    });
+    if (req.session.me) {
+      return res.redirect('/');
+    }
+    return res.view('restore');
   },
 
   showSignupPage: function (req, res) {
 
+    if (req.session.me) {
+      return res.redirect('/');
+    }
+
     return res.view('signup', {
-      me: req.session.me
+      me: null
     });
   }
 };
