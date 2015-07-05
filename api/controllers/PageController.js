@@ -141,7 +141,10 @@ module.exports = {
     if (req.session.me) {
       return res.redirect('/');
     }
-    return res.view('restore');
+
+    return res.view('restore', {
+      me: null
+    });
   },
 
   showSignupPage: function (req, res) {
