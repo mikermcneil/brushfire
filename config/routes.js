@@ -45,7 +45,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   'GET /listAll': 'VideoController.find',
-  '/': 'PageController.showHomePage',
+  'GET /': {view: 'homepage'},
+  // 'GET /': {view: 'homepage', locals: {me: {id: null}}},
+  // '/': 'PageController.showHomePage',
   'GET /signup': 'PageController.showSignupPage',
   'GET /videos': 'PageController.showVideosPage',
   'GET /profile': 'PageController.showProfilePage',
