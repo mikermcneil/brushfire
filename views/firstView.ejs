@@ -1,5 +1,7 @@
 <h1>Favorite cat names.</h1>
 
 <ul class="list-group">
-<h2><li class="list-group-item"><%= name %><li></h2>
+  <% _.forEach(catnames, function(name) { %>
+  <h2><li class="list-group-item"><%= name %><li></h2>
+  <% }); %>
 </ul>
