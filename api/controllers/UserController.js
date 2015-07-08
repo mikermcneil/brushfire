@@ -96,15 +96,15 @@ module.exports = {
    */
   login: function (req, res) {
 
-    // req.session.me = 1;
-
-    // res.redirect('/');
-
-    // // Try to look up user using the provided email address
+    // Try to look up the user using the provided email address
     User.findOne({
       email: req.param('email')
     }, function foundUser(err, user) {
+
+      // Handle error
       if (err) return res.negotiate(err);
+
+      // Handle no user being found
       if (!user) return res.notFound();
 
       // Compare password attempt from the form params to the encrypted password
