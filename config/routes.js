@@ -50,12 +50,13 @@ module.exports.routes = {
     view: 'homepage', 
     locals: {
       me: {
-        id: 1,
+        id: null,
         gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
         email: 'sailsinaction@gmail.com'
       }
     }
   },
+  'PUT /login': 'UserController.login',
   // '/': 'PageController.showHomePage',
   'GET /signup': 'PageController.showSignupPage',
   'GET /videos': 'PageController.showVideosPage',
@@ -66,7 +67,6 @@ module.exports.routes = {
   'PUT /updateProfile/:id': 'UserController.updateProfile',
   'PUT /restoreGravatarURL': 'UserController.restoreGravatarURL',
   'POST /signup': 'UserController.signup',
-  'PUT /login': 'UserController.login',
   'GET /logout': 'UserController.logout',
   'POST /user/signup': 'UserController.signup',
   'PUT /changePassword': 'UserController.changePassword',
