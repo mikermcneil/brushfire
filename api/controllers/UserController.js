@@ -11,6 +11,20 @@ var Gravatar = require('machinepack-gravatar');
 
 module.exports = {
 
+  setSession: function(req, res) {
+
+    req.session.me = req.param('sessionVar');
+
+    return res.send(req.session.me || 'not yet set');
+
+  },
+
+  getSession: function(req, res) {
+
+    return res.send(req.session.me || 'not yet set');
+
+  },
+
   signup: function(req, res) {
 
     // // Validate parameters
