@@ -15,13 +15,13 @@ module.exports = {
 
     req.session.me = req.param('sessionVar');
 
-    return res.send(req.session.me || 'not yet set');
+    return res.json(req.session.me || 'not yet set');
 
   },
 
   getSession: function(req, res) {
 
-    return res.send(req.session.me || 'not yet set');
+    return res.json(req.session.me || 'not yet set');
 
   },
 
@@ -146,11 +146,18 @@ module.exports = {
 
           }
 
+          // Create a dictionary of values to add to the session
+          var userProperties = {};
+
+          userProperties.id = user.id;
+          userProperties.email = user.email;
+          userProperties.gravatarURL = user.gravatarURL;
+
           // Store user id in the user session
-          req.session.me = user.id;
+          req.session.me = userProperties;
 
           // All done- let the client know that everything worked.
-          return res.ok();
+          return res.json();
         }
       });
     });

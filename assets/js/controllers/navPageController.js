@@ -19,7 +19,8 @@ angular.module('brushfire').controller('navPageController', ['$location', '$scop
       .then(function onSuccess() {
         // Redierct the page now that we've been logged in.
         // window.location = '/videos';
-        toastr.success('We have a match!', 'Success', {closeButton: true});
+        window.location = '/';
+        // toastr.success('We have a match!', 'Success', {closeButton: true});
       })
       .catch(function onError(sailsResponse) {
 
