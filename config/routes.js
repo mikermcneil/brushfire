@@ -60,7 +60,7 @@ module.exports.routes = {
     view: 'videos',
     locals: {
       me: {
-        id: null,
+        id: 1,
         gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
         email: 'sailsinaction@gmail.com'
       }
