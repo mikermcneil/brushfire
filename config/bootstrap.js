@@ -13,12 +13,12 @@ module.exports.bootstrap = function(cb) {
 
   Video.count().exec(function(err, numVideos) {
     if (err) {
-      return cb(err);                                
+      return cb(err);
     }
 
     if (numVideos > 0) {
-      // console.log('Existing video records: ', numVideos)
-      return cb();
+      // return cb();
+      return createTestUsers();
     }
     var Youtube = require('machinepack-youtube');
 
@@ -45,15 +45,66 @@ module.exports.bootstrap = function(cb) {
           delete video.url;
         });
 
-        Video.create(returnedVideos).exec(function(err, videoRecordsCreated) { 
-          if (err) {                                        
+        Video.create(returnedVideos).exec(function(err, videoRecordsCreated) {
+          if (err) {
             return cb(err);
           }
 
           // console.log(videoRecordsCreated);             
-          return cb();                  
+          // return cb();
+          return createTestUsers();
         });
       },
     });
   });
+
+  function createTestUsers() {
+
+    var Passwords = require('machinepack-passwords');
+    var Gravatar = require('machinepack-gravatar');
+
+    User.findOne({
+      email: 'sailsinaction@gmail.com'
+    }).exec(function(err, foundUser) {
+      if (foundUser){
+       return cb();
+      }
+
+      Passwords.encryptPassword({
+        password: 'abc123',
+      }).exec({
+        // An unexpected error occurred.
+        error: function(err) {
+          return cb(err);
+        },
+        // OK.
+        success: function(result) {
+
+          var options = {};
+
+          try {
+            // Build the URL of a gravatar image for a particular email address.
+            options.gravatarURL = Gravatar.getImageUrl({
+              emailAddress: 'sailsinaction@gmail.com'
+            }).execSync();
+
+          } catch (err) {
+            return cb(err);
+          }
+
+          options.email = 'sailsinaction@gmail.com';
+          options.encryptedPassword = result;
+          User.create(options).exec(function(err, createdUser) {
+            if (err) {
+
+              return cb(err);
+            }
+
+            return cb();
+
+          });
+        }
+      });
+    });
+  }
 }
