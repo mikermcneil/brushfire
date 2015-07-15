@@ -50,6 +50,7 @@ module.exports.routes = {
   'GET /profile': 'PageController.showProfilePage',
   'GET /edit-profile': 'PageController.showEditProfilePage',
   'GET /restore': 'PageController.showRestorePage',
+  'GET /signup': 'PageController.showSignupPage',
   // 'GET /': {view: 'homepage'},
   // 'GET /': {
   //   view: 'homepage',
@@ -91,16 +92,16 @@ module.exports.routes = {
   //     }
   //   }
   // },
-  'GET /signup': {
-    view: 'signup',
-    locals: {
-      me: {
-        id: null,
-        gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
-        email: 'sailsinaction@gmail.com'
-      }
-    }
-  },
+  // 'GET /signup': {
+  //   view: 'signup',
+  //   locals: {
+  //     me: {
+  //       id: null,
+  //       gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
+  //       email: 'sailsinaction@gmail.com'
+  //     }
+  //   }
+  // },
   // 'GET /restore': {
   //   view: 'restore',
   //   locals: {
