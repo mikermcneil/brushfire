@@ -93,9 +93,12 @@ module.exports = {
                 return res.negotiate(err);
               }
 
-              req.session.me=createdUser.id;
+              // Create a dictionary of values to add to the session
+              req.session.me = {};
 
-              return res.json(createdUser);
+              req.session.me.id = createdUser.id;
+
+              return res.json();
 
             });
           }

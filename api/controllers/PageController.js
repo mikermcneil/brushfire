@@ -6,12 +6,14 @@
  */
 
 module.exports = {
+
+  // Analyze the user authentication state and 
+  // pass the appropriate locals to the homepage view. 
+
   showHomePage: function (req, res) {
     
-  // // If not logged in, show the public view.
-  //   if (!req.session.me) {
-  //     return res.view('homepage', {me: req.session.me});
-  //   }
+  // If the user is NOT authenticated, return the homepage
+  // with the me property in locals set to null.
 
     if (!req.session.me) {
       return res.view('homepage', {
@@ -21,7 +23,7 @@ module.exports = {
 
     // Otherwise, look up the logged-in user and show the logged-in view,
     // bootstrapping basic user data in the HTML sent from the server
-    User.findOne(req.session.me.id, function (err, user){
+    User.findOne(req.session.me, function (err, user){
       if (err) {
         return res.negotiate(err);
       }
