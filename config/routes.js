@@ -49,6 +49,7 @@ module.exports.routes = {
   'GET /videos': 'PageController.showVideosPage',
   'GET /profile': 'PageController.showProfilePage',
   'GET /edit-profile': 'PageController.showEditProfilePage',
+  'GET /restore': 'PageController.showRestorePage',
   // 'GET /': {view: 'homepage'},
   // 'GET /': {
   //   view: 'homepage',
@@ -100,29 +101,18 @@ module.exports.routes = {
       }
     }
   },
-  'GET /restore': {
-    view: 'restore',
-    locals: {
-      me: {
-        id: null,
-        gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
-        email: 'sailsinaction@gmail.com'
-      }
-    }
-  },
-  'GET /noview': {
-    view: 'noview',
-    locals: {
-      layout: false
-    }
-  },
+  // 'GET /restore': {
+  //   view: 'restore',
+  //   locals: {
+  //     me: {
+  //       id: null,
+  //       gravatarURL: 'http://www.gravatar.com/avatar/ef3eac6c71fdf24b13db12d8ff8d1264?',
+  //       email: 'sailsinaction@gmail.com'
+  //     }
+  //   }
+  // },
   'PUT /login': 'UserController.login',
-  // 'GET /signup': 'PageController.showSignupPage',
-  // 'GET /videos': 'PageController.showVideosPage',
-  // 'GET /profile': 'PageController.showProfilePage',
-  // 'GET /restore': 'PageController.showRestorePage',
   'PUT /restoreProfile': 'UserController.restoreProfile',
-  // 'GET /edit-profile': 'PageController.showEditProfilePage',
   'PUT /updateProfile/:id': 'UserController.updateProfile',
   'PUT /restoreGravatarURL': 'UserController.restoreGravatarURL',
   'POST /signup': 'UserController.signup',
