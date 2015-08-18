@@ -1,3 +1,1 @@
-# brushfire
-
-a [Sails](http://sailsjs.org) application
+#This repo has been relocated [here](http://irlnathan.github.io/sailsinaction/)!
